@@ -5,11 +5,11 @@ class Recipient extends Model {
     super.init (
       {
         name: Sequelize.STRING,
-        rua: Sequelize.STRING,
-        número: Sequelize.INTEGER,
-        complemento: Sequelize.STRING,
-        estado: Sequelize.STRING,
-        cidade: Sequelize.STRING,
+        street: Sequelize.STRING,
+        number: Sequelize.INTEGER,
+        complement: Sequelize.STRING,
+        estate: Sequelize.STRING,
+        city: Sequelize.STRING,
         cep: Sequelize.STRING,
       },
       {
