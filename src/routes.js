@@ -1,9 +1,15 @@
 import { Router } from 'express';
 
 import RecipientController from './app/controllers/RecipientController';
+import SessionController from './app/controllers/SessionController';
 
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
+
+routes.use(authMiddleware);
+
+routes.post('/session', SessionController.store);
 
 routes.get('/recipients', RecipientController.index);
 routes.get('/recipients/:id', RecipientController.show);
