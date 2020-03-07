@@ -2,14 +2,18 @@ import { Router } from 'express';
 
 import RecipientController from './app/controllers/RecipientController';
 import SessionController from './app/controllers/SessionController';
+import UserController from './app/controllers/UserController';
 
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-routes.use(authMiddleware);
+//routes.use(authMiddleware);
 
-routes.post('/session', SessionController.store);
+routes.post('/sessions', SessionController.store);
+
+routes.get('/users', UserController.index);
+routes.post('/users', UserController.store);
 
 routes.get('/recipients', RecipientController.index);
 routes.get('/recipients/:id', RecipientController.show);
