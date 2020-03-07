@@ -1,38 +1,31 @@
 import * as Yup from 'yup';
-
 import Recipient from '../models/Recipient';
 
 class RecipientController {
   //listagem destinatários
   async index(res, req){
-      const allRecipient = await Recipient.findAll();
+      const recipients = await Recipient.findAll();
 
-      if (!allRecipient){
-        return res.status(400).json({ error: 'There are no Recipient registred.'});
-      }
-      return res.json(allRecipient);
+      return res.json(recipients);
   };
 
   //exibir destinatários
   async show(res, req){
-    const { id } = req.params;
+    const recipient = await Recipient.findByPk(req.params.id);
 
-    const oneRecipient =  await Recipient.findOne(id);
-
-    if(!oneRecipient){
-      return res.status(400).json({ error: 'This Recipient are not registred.' })
+    if(!recipient){
+      return res.status(400).json({ error: 'Recipient does not exists.' })
     }
 
-    return res.json(oneRecipient);
+    return res.json(recipient);
   }
-
 
   //cadastrar destinatários
   async store(req, res) {
     const schema= Yup.object().shape({
       name: Yup.string().required(),
       street: Yup.string().required(),
-      number: Yup.number().integer().required(),
+      number: Yup.string().required(),
       complement: Yup.string().required(),
       state: Yup.string().required(),
       city: Yup.string().required(),
@@ -41,31 +34,11 @@ class RecipientController {
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validadtion fails.' });
-      }
-    
-    const { name, state, city, zip } = req.body;
-
-    const addressExist = await Recipient.findOne({ 
-      where: { name, state, city, zip } 
-    });  
-
-    if(addressExist) {
-      return res.status(401).json({ error: 'Adress already exist.' })
     }
 
-    const { id, street, number, complement} = await Recipient.create(req.body);
+    const recipient = await Recipient.create(req.body);
 
-    return res.json({
-      id,
-      name,
-      street,
-      number,
-      complement,
-      state,
-      city,
-      zip
-    });
-
+    return res.json(recipient);
   }
 
   //alterar usuário
@@ -80,42 +53,30 @@ class RecipientController {
       zip: Yup.string()
   });
 
-  if (!(await schema.isValid(req.body))) {
-    return res.status(400).json({ error: 'Validation fails.' });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    };
+
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    if(!recipient){
+      return res.status(400).json({ error: 'This Recipient are not registred.' })
+    }
+
+    recipient.update(req.body);
+
+    return res.json(recipient);
   };
-
-  const { id } = req.params;
-
-  const oneRecipient =  await Recipient.findOne(id);
-
-  if(!oneRecipient){
-    return res.status(400).json({ error: 'This Recipient are not registred.' })
-  }
-
-  const { name, street, number, complement, state, city, zip } = await user.update(req.body);
-
-      return res.json({
-        name,
-        street,
-        number,
-        complement,
-        state,
-        city,
-        zip
-      });
-};
 
   //deletar usuário
   async delete(req, res){
-  const { id } = req.params;
+  const recipient =  await Recipient.findByPk(req.params.id);
 
-  const oneRecipient =  await Recipient.findOne(id);
-
-  if(!oneRecipient){
-    return res.status(400).json({ error: 'This Recipient are not registred.' })
+  if(recipient){
+    return res.status(400).json({ error: 'Recipient does not exists.' })
   };
   
-  oneRecipient.destroy({ where: { id }});
+  await recipient.destroy();
 
   return res.send();
 };  
