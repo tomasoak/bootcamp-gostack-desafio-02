@@ -53,7 +53,7 @@ class RecipientController {
       return res.status(401).json({ error: 'Adress already exist.' })
     }
 
-    const { id, name, street, number, complement, state, city, zip } = await Recipient.create(req.body);
+    const { id, street, number, complement} = await Recipient.create(req.body);
 
     return res.json({
       id,
