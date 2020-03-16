@@ -8,12 +8,16 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
-//routes.use(authMiddleware);
+routes.get('/users', UserController.index);
+routes.get('users/:id', UserController.show);
+routes.post('/users', UserController.store);
 
 routes.post('/sessions', SessionController.store);
 
-routes.get('/users', UserController.index);
-routes.post('/users', UserController.store);
+routes.use(authMiddleware);
+
+routes.put('/users', UserController.update);
+routes.delete('/users/:id', UserController.destroy);
 
 routes.get('/recipients', RecipientController.index);
 routes.get('/recipients/:id', RecipientController.show);
