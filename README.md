@@ -38,13 +38,12 @@ A aplicação desenvolvida é um app para uma transportadora fictícia, o FastFe
 
 Nesse primeiro desafio foram criadas algumas funcionalidades básicas. Esse projeto está sendo desenvolvido aos poucos até o fim da jornada onde será desenvolvida uma aplicação completa envolvendo back-end, front-end e mobile, que será utilizada para a **certificação do bootcamp**.
 
-### **Um pouco sobre as ferramentas**
+### ***Pré-requisitos***
+O que você precisa ter instalado em sua máquina:
 
-Foi criada uma aplicação do zero utilizando o [Express](https://expressjs.com/), Foram configuradas as seguintes ferramentas:
-
-- Sucrase + Nodemon;
-- ESLint + Prettier + EditorConfig;
-- Sequelize (Utilize PostgreSQL ou MySQL);
+<li>Docker</li>
+Node.js
+Yarn (Opcional)
 
 ### **Funcionalidades**
 
