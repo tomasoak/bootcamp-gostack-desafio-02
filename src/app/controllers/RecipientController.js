@@ -33,13 +33,9 @@ class RecipientController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    try {
-      const recipient = await Recipient.create(req.body);
+    const recipient = await Recipient.create(req.body);
 
-      return res.json(recipient);
-    } catch (err) {
-      return res.status(400).json({ error: err.message });
-    }
+    return res.json(recipient);
   }
 
   //alterar usuário
