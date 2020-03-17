@@ -38,51 +38,18 @@ A aplicação desenvolvida é um app para uma transportadora fictícia, o FastFe
 
 Nesse primeiro desafio foram criadas algumas funcionalidades básicas. Esse projeto está sendo desenvolvido aos poucos até o fim da jornada onde será desenvolvida uma aplicação completa envolvendo back-end, front-end e mobile, que será utilizada para a **certificação do bootcamp**.
 
-### **Um pouco sobre as ferramentas**
+### ***Pré-requisitos***
+O que você precisa ter instalado em sua máquina:
 
-Foi criada uma aplicação do zero utilizando o [Express](https://expressjs.com/), Foram configuradas as seguintes ferramentas:
+<li>Docker</li>
+<li>Node.js</li>
+<li>Yarn (Opcional)</li>
 
-- Sucrase + Nodemon;
-- ESLint + Prettier + EditorConfig;
-- Sequelize (Utilize PostgreSQL ou MySQL);
-
-### **Funcionalidades**
-
-Abaixo estão descritas as funcionalidades adicionadas na aplicação.
-
-### **1. Autenticação**
+### 1. Autenticação
 
 É possível que um usuário se autentique em na aplicação utilizando e-mail e uma senha.
 
 Foi criado um usuário administrador utilizando a funcionalidade de [seeds do sequelize](https://sequelize.org/master/manual/migrations.html#creating-first-seed), essa funcionalidade serve para criar registros na base de dados de forma automatizada.
-
-Para criar um seed utilize o comando:
-
-    yarn sequelize seed:generate --name admin-user
-
-No arquivo gerado na pasta `src/database/seeds` foi criado o sequente <i>Model</i> referente à criação de um usuário administrador:
-
-    const bcrypt = require("bcryptjs");
-
-    module.exports = {
-      up: QueryInterface => {
-        return QueryInterface.bulkInsert(
-          "users",
-          [
-            {
-              name: "Distribuidora FastFeet",
-              email: "admin@fastfeet.com",
-              password_hash: bcrypt.hashSync("123456", 8),
-              created_at: new Date(),
-              updated_at: new Date()
-            }
-          ],
-          {}
-        );
-      },
-
-      down: () => {}
-    };
 
 A autenticação foi feita utilizando JWT.
 
