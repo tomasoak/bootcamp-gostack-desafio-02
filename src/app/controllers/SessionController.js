@@ -29,7 +29,9 @@ class SessionController {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    const { id, name } = user;
+    const { id, name, admin } = user;
+
+    const payload = { id, admin };
 
     return res.json({
       user: {
@@ -37,7 +39,7 @@ class SessionController {
         name,
         email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign(payload, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
